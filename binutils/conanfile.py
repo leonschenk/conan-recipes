@@ -10,7 +10,7 @@ class BinutilsConan(ConanFile):
     description = "<Description of Binutils here>"
     topics = ("<Put some tag here>", "<here>", "<and here>")
     settings = "os", "compiler", "build_type", "arch"
-    build_requires = "flex/2.6.4"
+    build_requires = "flex/2.6.4", "bison/3.7.1"
 
     def layout(self):
         self.folders.source = 'src'
