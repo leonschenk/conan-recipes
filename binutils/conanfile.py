@@ -3,7 +3,7 @@ from conans import ConanFile, AutoToolsBuildEnvironment, tools
 
 class BinutilsConan(ConanFile):
     name = "binutils"
-    version = "0.1"
+    version = "2.36.1"
     license = "<Put the package license here>"
     author = "<Put your name here> <And your email here>"
     url = "<Package recipe repository url here, for issues about the package>"
@@ -18,22 +18,18 @@ class BinutilsConan(ConanFile):
         self.folders.package = 'package'
 
     def source(self):
-        git = tools.Git()
-        git.clone("https://sourceware.org/git/binutils-gdb.git", "binutils-2_36_1", shallow=True)
+        tools.get(
+          **self.conan_data["sources"][self.version],
+          destination=self.folders.source_folder,
+          strip_root=True
+        )
 
     def build(self):
         autotools = AutoToolsBuildEnvironment(self)
-        autotools.configure(configure_dir=self.folders.source_folder, target='x86_64-w64-mingw32')
+        autotools.configure(configure_dir=self.folders.source_folder,args=['--disable-multilib'],target='x86_64-w64-mingw32')
         autotools.make()
 
     def package(self):
-        self.copy("*.h", dst="include", src="hello")
-        self.copy("*hello.lib", dst="lib", keep_path=False)
-        self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.dylib", dst="lib", keep_path=False)
-        self.copy("*.a", dst="lib", keep_path=False)
-
-    def package_info(self):
-        self.cpp_info.libs = ["hello"]
+        autotools = AutoToolsBuildEnvironment(self)
+        autotools.install()
 
