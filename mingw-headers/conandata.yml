@@ -1,0 +1,4 @@
+sources:
+  "9.0.0":
+    url: https://git.code.sf.net/p/mingw-w64/mingw-w64
+    tag: v9.0.0

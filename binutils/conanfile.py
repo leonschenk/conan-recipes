@@ -1,5 +1,5 @@
 from conans import ConanFile, AutoToolsBuildEnvironment, tools
-
+import os
 
 class BinutilsConan(ConanFile):
     name = "binutils"
@@ -33,3 +33,14 @@ class BinutilsConan(ConanFile):
         autotools = AutoToolsBuildEnvironment(self)
         autotools.install()
 
+    def package_info(self):
+        bin_folder = os.path.join(self.package_folder, "bin")
+        self.output.info("Appending PATH environment variable: {}".format(bin_folder))
+        self.env_info.PATH.append(bin_folder)
+#        self.env_info.CHOST = os.path.join(bin_folder, 'x86_64-w64-mingw32')
+#        self.env_info.AR = os.path.join(bin_folder, 'x86_64-w64-mingw32-ar')
+#        self.env_info.AS = os.path.join(bin_folder, 'x86_64-w64-mingw32-as')
+#        self.env_info.RANLIB = os.path.join(bin_folder, 'x86_64-w64-mingw32-ranlib')
+#        self.env_info.LD = os.path.join(bin_folder, 'x86_64-w64-mingw32-ld')
+#        self.env_info.STRIP = os.path.join(bin_folder, 'x86_64-w64-mingw32-strip')
+#        self.env_info.RC = os.path.join(bin_folder, 'x86_64-w64-mingw32-windres')

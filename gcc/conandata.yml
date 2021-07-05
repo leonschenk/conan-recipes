@@ -1,0 +1,4 @@
+sources:
+  "9.4.0":
+    url: https://gcc.gnu.org/git/gcc.git
+    tag: releases/gcc-9.4.0
