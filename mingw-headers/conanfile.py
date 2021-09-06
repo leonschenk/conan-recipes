@@ -10,7 +10,7 @@ class MingwHeadersConan(ConanFile):
     url = "<Package recipe repository url here, for issues about the package>"
     description = "<Description of Binutils here>"
     topics = ("<Put some tag here>", "<here>", "<and here>")
-    settings = []
+    settings = "os","compiler","build_type","arch"
     build_requires = "binutils/2.36.1"
 
     def layout(self):
@@ -27,7 +27,7 @@ class MingwHeadersConan(ConanFile):
         autotools = AutoToolsBuildEnvironment(self)
         autotools.configure(
           configure_dir=os.path.join(self.folders.source_folder,'mingw-w64-headers'),
-          args=["--prefix=" + os.path.join(self.folders.package_folder, 'x86_64-w64-mingw32')],
+          args=["--prefix=" + self.folders.package_folder],
           host='x86_64-w64-mingw32'
         )
         autotools.make()

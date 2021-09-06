@@ -34,8 +34,12 @@ class GccConan(ConanFile):
     def package(self):
         autotools = AutoToolsBuildEnvironment(self)
         autotools.make(target='install-gcc')
+        self.copy('*.mvars', 'gcc-config', 'gcc')
+        self.copy('*.h', 'gcc-config', 'gcc')
+        self.copy('*.def', 'gcc-config', 'gcc')
 
     def package_info(self):
         self.env_info.CC = os.path.join(self.folders.package_folder,'bin','x86_64-w64-mingw32-gcc')
         self.env_info.CXX = os.path.join(self.folders.package_folder,'bin','x86_64-w64-mingw32-g++')
         self.env_info.COMPILER_PATH = os.path.join(self.deps_cpp_info['binutils'].rootpath,'x86_64-w64-mingw32','bin')
+        self.user_info.GCC_CONFIG_PATH = os.path.join(self.folders.package_folder,'gcc-config')
